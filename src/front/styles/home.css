@@ -1,7 +1,50 @@
-/*
-    home.css: This website contains selectors only used in home.css
 
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+.card {
+    width: 18rem;
+    min-width: 18rem;
+}
+
+h2 {
+    color: red;
+}
+
+.card-container {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: 720px;
+}
+
+.like:active {
+    color: yellow;
+}
+
+.like:focus {
+    color: red;
+}
+
+.like:target {
+    color: red;
+}
+
+.infocard {
+    width: 400px;
+}
+
+.infofooter {
+    border-top: 3px solid red;
+}
+
+.info {
+    font-size: 150%;
+}
+
+th, tr {
+    color: red;
+}
+
+.box {
+    background: rgb(191, 191, 241);
+    margin: auto;
+    width: 300px;
+    height: 250px;
+}
