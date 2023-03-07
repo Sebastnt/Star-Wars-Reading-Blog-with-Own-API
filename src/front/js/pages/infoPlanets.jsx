@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { Navbar } from "../component/navbar.jsx";
 
@@ -12,18 +12,10 @@ export const InfoPlanets = () => {
 	
     const {id} = useParams();
 
-    const [planet, setPlanet] = useState({});
-    
-    const setPlanetInfoAsync = async () => {
-		const singlePlanet = await actions.getPlanets(id);
-		setPlanet(singlePlanet);
-	}
-
     useEffect(() => {
-		setPlanetInfoAsync();
+		actions.getPlanets(id);
 	},[])
-
-
+    console.log(store)
     return (
         <>
             <Navbar />
@@ -35,7 +27,7 @@ export const InfoPlanets = () => {
 						e.target.src ="https://oyster.ignimgs.com/mediawiki/apis.ign.com/star-wars-episode-7/4/4b/Tatooine-3.jpg";
 						}} className="infocard" alt="..." />
                     <div className="info p-3 text-center">
-                        <h1>{planet.name}</h1>
+                        <h1>{store.planets.planet?.name}</h1>
                         <p>Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     </div>
                 </div>
@@ -53,12 +45,12 @@ export const InfoPlanets = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{planet.name}</td>
-                                <td>{planet.rotation_period}</td>
-                                <td>{planet.orbital_period}</td>
-                                <td>{planet.diameter}</td>
-                                <td>{planet.gravity}</td>
-                                <td>{planet.population}</td>
+                                <td>{store.planets.planet?.name}</td>
+                                <td>{store.planets.planet?.rotation_period}</td>
+                                <td>{store.planets.planet?.orbital_period}</td>
+                                <td>{store.planets.planet?.diameter}</td>
+                                <td>{store.planets.planet?.gravity}</td>
+                                <td>{store.planets.planet?.population}</td>
                             </tr>
                         </tbody>
                     </table>

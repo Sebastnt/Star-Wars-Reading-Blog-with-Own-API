@@ -8,17 +8,8 @@ export const Planets = () => {
    
 	const { store, actions } = useContext(Context)
 
-	// const { addFavorites, favorites } = useContext(FavoritesContext)
-
-	const [planets, setPlanets] = useState([]);
-
-	const setPlanetsAsync = async () => {
-		const planetList = await actions.getPlanets();
-		setPlanets(planetList?.results);
-	}
-
 	useEffect(() => {
-		setPlanetsAsync()
+		actions.getPlanets()
 	},[])
 
 
@@ -26,7 +17,7 @@ export const Planets = () => {
         <div className="container mt-2">
 			<h2>Planets</h2>
 			<div className="card-container mt-4 p-2 d-flex justify-content-between">
-				{planets.map( ( {name, population, terrain, climate}, i ) => (
+				{store.planets && store.planets.map( ( {name, population, terrain, climate}, i ) => (
 					<div key= {i} className="card me-5">
 						<img src={`https://starwars-visualguide.com/assets/img/planets/${i + 1}.jpg`}
 						onError={(e) => {

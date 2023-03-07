@@ -12,15 +12,8 @@ export const InfoFilms = () => {
 
     const {id} = useParams();
 
-    const [film, setFilm] = useState({});
-
-    const setFilmInfoAsync = async () => {
-		const singleFilm = await actions.getFilms(id);
-		setFilm(singleFilm);
-	}
-
     useEffect(() => {
-		setFilmInfoAsync();
+		actions.getFilms(id);
 	},[])
     
     return (
@@ -31,8 +24,8 @@ export const InfoFilms = () => {
 
                     <img src={`https://starwars-visualguide.com/assets/img/films/${id}.jpg`} className="infocard" alt="..." />
                     <div className="info p-3 text-center">
-                        <h1>{film.title}, Episode: {film.episode_id}</h1>
-                        <p>{film.opening_crawl}</p>
+                        <h1>{store.films.film?.title}, Episode: {store.films.film?.episode_id}</h1>
+                        <p>{store.films.film?.opening_crawl}</p>
                     </div>
                 </div>
                 <div className="infofooter mt-4 p-3"> 
@@ -48,11 +41,11 @@ export const InfoFilms = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{film.title}</td>
-                                <td>{film.episode_id}</td>
-                                <td>{film.director}</td>
-                                <td>{film.producer}</td>
-                                <td>{film.release_date}</td>
+                                <td>{store.films.film?.title}</td>
+                                <td>{store.films.film?.episode_id}</td>
+                                <td>{store.films.film?.director}</td>
+                                <td>{store.films.film?.producer}</td>
+                                <td>{store.films.film?.release_date}</td>
                             </tr>
                         </tbody>
                     </table>
