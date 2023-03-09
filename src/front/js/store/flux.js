@@ -63,8 +63,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log(e);
           }
         }
-        console.log('getStore')
-        console.log(getStore())
       },
       getPlanets: async (id) => {
         let api = url + "/api/planets";
@@ -150,7 +148,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             const data = await resp.json();
             localStorage.setItem("token", data?.access_token);
             setStore({ auth: true });
-            console.log(getStore());
             return true;
           }
           // don't forget to return something, that is how the async resolves

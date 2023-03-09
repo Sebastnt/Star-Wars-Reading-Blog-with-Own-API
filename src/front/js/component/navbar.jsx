@@ -12,7 +12,6 @@ export const Navbar = () => {
 		actions.getFavorites();
 	},[])
 
-	console.log(store.favorites)
 	return (
 		<nav className="navbar navbar-light bg-light mb-3 p-3">
 			<Link to="/home">

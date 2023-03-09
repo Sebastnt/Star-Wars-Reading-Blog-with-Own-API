@@ -11,7 +11,7 @@ export const Characters = () => {
 	useEffect(() => {
 		actions.getCharacters();
 	},[])
-	
+	console.log(store.favorites)
     return (
         <div className="container mt-2">
 			<h2>Characters</h2>
@@ -30,7 +30,7 @@ export const Characters = () => {
 								<button className="btn btn-outline-primary">Learn More!</button>
 							</Link>
 							<button className="like btn btn-outline-warning"><i
-            				className={store.favorites.includes(name) ? "fas fa-heart" : "far fa-heart"} onClick={()=>{actions.favoriteCharacters(id)}} ></i></button>
+            				className={store.favorites.includes({name}) ? "fas fa-heart" : "far fa-heart"} onClick={()=>{actions.favoriteCharacters(id)}} ></i></button>
 						</div>
 					</div>
 				))}
