@@ -14,7 +14,31 @@ api = Blueprint('api', __name__)
 # api.config["JWT_SECRET_KEY"] = "super-secret"  # Change this!
 # jwt = JWTManager(api)
 
+@api.route("/login", methods=["POST"])
+def login():
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    user = User.query.filter_by(email=email).first()
+
+    if user is None:
+        return jsonify({"msg": "User doesn't exist"}), 404
+    if email != user.email or password != user.password:
+        return jsonify({"msg": "Bad email or password"}), 401
+
+    access_token = create_access_token(identity=user.id)
+    return jsonify(access_token=access_token)
+
+@api.route("/home", methods=["GET"])
+@jwt_required()
+def home():
+    response_body = {
+        "msg": "Hello, you are logged in",
+    }
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user), 200
+
 @api.route('/people', methods=['GET'])
+@jwt_required()
 def get_people():
     people = People.query.all()
     #[<People 'Yoda'>, <People 'Darth Vader'>]
@@ -53,7 +77,7 @@ def get_planet(planets_id):
     planet = Planets.query.filter_by(id=planets_id).first()
     response_body = {
         "msg": "Hello, from planet",
-        "person": planet.serialize()
+        "planet": planet.serialize()
     }
     return jsonify(response_body), 200
 
@@ -72,26 +96,27 @@ def get_film(films_id):
     films = Films.query.filter_by(id=films_id).first()
     response_body = {
         "msg": "Hello, from films",
-        "person": films.serialize()
+        "films": films.serialize()
     }
     return jsonify(response_body), 200
 
-@api.route('/user/<int:user_id>/favorites', methods=['GET'])
-def get_user_favorites(user_id):
-  favorites_query = Favorites.query.filter_by(user_id=user_id).all()
-  list_favorites = []
-  for i in favorites_query:
-      favorite_people = People.query.filter_by(id=i.people_id).first()
-      if favorite_people:
-        list_favorites.append(favorite_people.name)
-      favorite_planets = Planets.query.filter_by(id=i.planets_id).first()
-      if favorite_planets:
-        list_favorites.append(favorite_planets.name)
-  response_body = {
-    "list_favorites_{}".format(user_id): list_favorites
-  }
-  return jsonify(response_body), 200
-
+@api.route('/favorites', methods=['GET'])
+@jwt_required()
+def user_favorites_jwt():
+    current_user = get_jwt_identity()
+    favorites_query = Favorites.query.filter_by(user_id=current_user).all()
+    list_favorites = []
+    for i in favorites_query:
+        favorite_people = People.query.filter_by(id=i.people_id).first()
+        if favorite_people:
+            list_favorites.append(favorite_people.name)
+        favorite_planets = Planets.query.filter_by(id=i.planets_id).first()
+        if favorite_planets:
+            list_favorites.append(favorite_planets.name)
+    response_body = {
+        "list_favorites": list_favorites
+    }
+    return jsonify(response_body), 200
 
 @api.route('/favorites/planets/<int:planets_id>', methods=['POST'])
 @jwt_required()
@@ -130,6 +155,37 @@ def add_new_favorite_people(people_id):
     if favorites_query:
         return jsonify({"msg": "Favorite person already added"}), 200
 
+@api.route('/favorites/films/<int:films_id>', methods=['POST'])
+@jwt_required()
+def add_new_favorite_films(films_id):
+    current_user = get_jwt_identity()
+    favorites_query = Favorites.query.filter(Favorites.user_id==current_user, Favorites.films_id==films_id).first()
+
+    if not favorites_query:
+        films = Films.query.filter_by(id=films_id).first()
+        new_favorite = Favorites(user_id=current_user, films_id=films_id)
+        if films:
+            db.session.add(new_favorite)
+            db.session.commit()
+            return jsonify({"msg": "Creating favorite films"}), 200
+        else:
+            return jsonify({"msg": "Films doesn't exists"}), 401
+    if favorites_query:
+        return jsonify({"msg": "Favorite films already added"}), 200
+
+@api.route('/favorites/<int:favorites_id>', methods=['DELETE'])
+@jwt_required()
+def delete_favorite(favorites_id):
+    current_user = get_jwt_identity()
+    favorites_query = Favorites.query.filter(id==favorites_id).first()
+
+    if favorites_query:
+        db.session.delete(favorites_query)
+        db.session.commit()
+        return jsonify({"msg": "Deleting favorite people"}), 200
+    
+    if not favorites_query:
+        return jsonify({"msg": "Favorite doesn't exist"}), 200
 
 @api.route('/favorites/planets/<int:planets_id>', methods=['DELETE'])
 @jwt_required()
@@ -156,6 +212,20 @@ def delete_favorite_people(people_id):
         db.session.delete(favorites_query)
         db.session.commit()
         return jsonify({"msg": "Deleting favorite people"}), 200
+    
+    if not favorites_query:
+        return jsonify({"msg": "Favorite doesn't exist"}), 200
+
+@api.route('/favorites/films/<int:films_id>', methods=['DELETE'])
+@jwt_required()
+def delete_favorite_films(films_id):
+    current_user = get_jwt_identity()
+    favorites_query = Favorites.query.filter(Favorites.user_id==current_user, Favorites.films_id==films_id).first()
+
+    if favorites_query:
+        db.session.delete(favorites_query)
+        db.session.commit()
+        return jsonify({"msg": "Deleting favorite film"}), 200
     
     if not favorites_query:
         return jsonify({"msg": "Favorite doesn't exist"}), 200

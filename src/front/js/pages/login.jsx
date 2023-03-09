@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState} from "react";
+import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
 
@@ -7,6 +8,8 @@ export const Login = () => {
   const [password, setPassword] = useState("");
 
   const { store, actions } = useContext(Context);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     // Prevent page reload

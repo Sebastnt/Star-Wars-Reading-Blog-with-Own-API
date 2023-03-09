@@ -7,6 +7,7 @@ import { InfoCharacters } from "./pages/infoCharacters.jsx";
 import { InfoPlanets } from "./pages/infoPlanets.jsx";
 import { InfoFilms } from "./pages/infoFilms.jsx";
 import { Login } from "./pages/login.jsx";
+import { PrivateRoute } from "./component/privateRoute.jsx";
 import injectContext from "./store/appContext";
 
 
@@ -23,11 +24,17 @@ const Layout = () => {
       <BrowserRouter basename={basename}>
           <ScrollToTop>
             <Routes>
-              <Route path="/home" element={<Home />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/infoCharacters/:id" element={<InfoCharacters />} />
-              <Route path="/infoPlanets/:id" element={<InfoPlanets />} />
-              <Route path="/infoFilms/:id" element={<InfoFilms />} />
+              <Route path="/home" element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>} />
+              <Route path="/infoCharacters/:id" element={
+                    <InfoCharacters /> }/>
+              <Route path="/infoPlanets/:id" element={
+                <InfoPlanets />} />
+              <Route path="/infoFilms/:id" element={
+                <InfoFilms />} />
               <Route path="*" element={<h1>Not found!</h1>} />
             </Routes>
           </ScrollToTop>

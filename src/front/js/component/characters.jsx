@@ -16,7 +16,7 @@ export const Characters = () => {
         <div className="container mt-2">
 			<h2>Characters</h2>
 			<div className="card-container mt-4 p-2 d-flex justify-content-between">
-				{store.characters && store.characters.map( ( {name, hair_color, eye_color, gender}, i ) => (
+				{store.characters && store.characters.map( ( {name, hair_color, eye_color, gender, id}, i ) => (
 					<div key= {i} className="card me-5">
 						<img src={`https://starwars-visualguide.com/assets/img/characters/${i+1}.jpg`} className="card-img-top" alt="Loading from API" />
 						<div className="card-body p-3">
@@ -30,7 +30,7 @@ export const Characters = () => {
 								<button className="btn btn-outline-primary">Learn More!</button>
 							</Link>
 							<button className="like btn btn-outline-warning"><i
-            				className={store.favorites.includes(name) ? "fas fa-heart" : "far fa-heart"}onClick={()=>{actions.addFavorites(name)}} ></i></button>
+            				className={store.favorites.includes(name) ? "fas fa-heart" : "far fa-heart"} onClick={()=>{actions.favoriteCharacters(id)}} ></i></button>
 						</div>
 					</div>
 				))}

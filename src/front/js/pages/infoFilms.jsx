@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Navbar } from "../component/navbar.jsx";
 
@@ -10,10 +11,18 @@ export const InfoFilms = () => {
 
     const { store, actions } = useContext(Context)
 
+    const navigate = useNavigate();
+
     const {id} = useParams();
 
+    let token = (localStorage.getItem("token"))
+
     useEffect(() => {
-		actions.getFilms(id);
+		if (token) {
+			actions.getFilms(id);
+		} else {
+			navigate("/login")
+		};
 	},[])
     
     return (
@@ -24,8 +33,8 @@ export const InfoFilms = () => {
 
                     <img src={`https://starwars-visualguide.com/assets/img/films/${id}.jpg`} className="infocard" alt="..." />
                     <div className="info p-3 text-center">
-                        <h1>{store.films.film?.title}, Episode: {store.films.film?.episode_id}</h1>
-                        <p>{store.films.film?.opening_crawl}</p>
+                        <h1>{store.films.title}, Episode: {store.films.episode_id}</h1>
+                        <p>{store.films.opening_crawl}</p>
                     </div>
                 </div>
                 <div className="infofooter mt-4 p-3"> 
@@ -41,11 +50,11 @@ export const InfoFilms = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{store.films.film?.title}</td>
-                                <td>{store.films.film?.episode_id}</td>
-                                <td>{store.films.film?.director}</td>
-                                <td>{store.films.film?.producer}</td>
-                                <td>{store.films.film?.release_date}</td>
+                                <td>{store.films.title}</td>
+                                <td>{store.films.episode_id}</td>
+                                <td>{store.films.director}</td>
+                                <td>{store.films.producer}</td>
+                                <td>{store.films.release_date}</td>
                             </tr>
                         </tbody>
                     </table>

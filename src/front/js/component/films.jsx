@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 
@@ -18,7 +18,7 @@ export const Films = () => {
         <div className="container mt-2">
 			<h2>Films</h2>
 			<div className="card-container mt-4 p-2 d-flex justify-content-between">
-				{store.films && store.films.map( ( {title, episode_id, director, producer, release_date}, i ) => (
+				{store.films && store.films.map( ( {title, episode_id, director, producer, release_date, id}, i ) => (
 					<div key= {i} className="card me-5">
 						<img src={`https://starwars-visualguide.com/assets/img/films/${i+1}.jpg`} className="card-img-top" alt="Loading Image from API" />
 						<div className="card-body p-3">
@@ -32,7 +32,7 @@ export const Films = () => {
 								<button className="btn btn-outline-primary">Learn More!</button>
 							</Link>
 							<button className="like btn btn-outline-warning"><i 
-            				className={store.favorites.includes(title) ? "fas fa-heart" : "far fa-heart"}onClick={()=>{actions.addFavorites(title)}} ></i></button>
+            				className={store.favorites.includes(title) ? "fas fa-heart" : "far fa-heart"}onClick={()=>{actions.favoriteFilms(id)}} ></i></button>
 						</div>
 					</div>
 				))}

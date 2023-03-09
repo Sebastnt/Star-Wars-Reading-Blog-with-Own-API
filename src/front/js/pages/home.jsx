@@ -10,21 +10,14 @@ import { Navbar } from "../component/navbar.jsx";
 
 export const Home = () => {
 
-	const { store, actions } = useContext(Context)
+	const { actions } = useContext(Context)
 	
 	useEffect(() => {
 		actions.getCharacters();
-	},[])
-
-	useEffect(() => {
 		actions.getPlanets();
-	},[])
-
-	useEffect(() => {
 		actions.getFilms();
 	},[])
-
-
+	
 	return (
 		<>
 			<Navbar />
@@ -32,5 +25,7 @@ export const Home = () => {
 			<Planets />
 			<Films />
 		</>
-	)
+	);
+
 };
+

@@ -17,7 +17,7 @@ export const Planets = () => {
         <div className="container mt-2">
 			<h2>Planets</h2>
 			<div className="card-container mt-4 p-2 d-flex justify-content-between">
-				{store.planets && store.planets.map( ( {name, population, terrain, climate}, i ) => (
+				{store.planets && store.planets.map( ( {name, population, terrain, climate, id}, i ) => (
 					<div key= {i} className="card me-5">
 						<img src={`https://starwars-visualguide.com/assets/img/planets/${i + 1}.jpg`}
 						onError={(e) => {
@@ -35,7 +35,7 @@ export const Planets = () => {
 								<button className="btn btn-outline-primary">Learn More!</button>
 							</Link>
 							<button className="like btn btn-outline-warning"><i 
-            				className={store.favorites.includes(name) ? "fas fa-heart" : "far fa-heart"}onClick={()=>{actions.addFavorites(name)}} ></i></button>
+            				className={store.favorites.includes(name) ? "fas fa-heart" : "far fa-heart"}onClick={()=>{actions.favoritePlanets(id)}} ></i></button>
 						</div>
 					</div>
 				))}

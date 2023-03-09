@@ -16,16 +16,16 @@ export const InfoCharacters = () => {
 		actions.getCharacters(id);
 	},[])
     
-    console.log(store)
+    console.log(store.characters.name)
     return (
         <>
             <Navbar />
             <div className="container">
-                {/* <div className="infotop d-flex justify-content-evenly p-2">
+                <div className="infotop d-flex justify-content-evenly p-2">
 
                     <img src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} className="infocard" alt="..." />
                     <div className="info p-3 text-center">
-                        <h1>{store.characters.person?.name}</h1>
+                        <h1>{store.characters.name}</h1>
                         <p>Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     </div>
                 </div>
@@ -43,16 +43,16 @@ export const InfoCharacters = () => {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>{store.characters.person?.name}</td>
-                                <td>{store.characters.person?.birth_year}</td>
-                                <td>{store.characters.person?.height}</td>
-                                <td>{store.characters.person?.mass}</td>
-                                <td>{store.characters.person?.skin_color}</td>
-                                <td>{store.characters.person?.gender}</td>
+                                <td>{store.characters.name}</td>
+                                <td>{store.characters.birth_year}</td>
+                                <td>{store.characters.height}</td>
+                                <td>{store.characters.mass}</td>
+                                <td>{store.characters.skin_color}</td>
+                                <td>{store.characters.gender}</td>
                             </tr>
                         </tbody>
                     </table>
-                </div>  */}
+                </div> 
             </div>
         </>
     )

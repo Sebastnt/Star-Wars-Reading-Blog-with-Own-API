@@ -84,7 +84,7 @@ class Films(db.Model):
     title = db.Column(db.String(120), nullable=False)
     url = db.Column(db.String(250), unique=True, nullable=True)
     episode_id =  db.Column(db.String(250), nullable=True)
-    opening_crawl =  db.Column(db.String(250), nullable=True)
+    opening_crawl =  db.Column(db.String(1000), nullable=True)
     director = db.Column(db.String(250), nullable=True)
     producer = db.Column(db.String(250), nullable=True)
     release_date = db.Column(db.String(250), nullable=True)
