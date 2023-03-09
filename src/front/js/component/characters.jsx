@@ -11,7 +11,7 @@ export const Characters = () => {
 	useEffect(() => {
 		actions.getCharacters();
 	},[])
-
+	
     return (
         <div className="container mt-2">
 			<h2>Characters</h2>

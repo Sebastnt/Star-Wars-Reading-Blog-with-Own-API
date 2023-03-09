@@ -12,6 +12,7 @@ export const Navbar = () => {
 		actions.getFavorites();
 	},[])
 
+	console.log(store.favorites)
 	return (
 		<nav className="navbar navbar-light bg-light mb-3 p-3">
 			<Link to="/home">
@@ -23,8 +24,8 @@ export const Navbar = () => {
 					<span className="badge bg-secondary rounded-pill">{store.favorites.length}</span>
 				</button>
 				<ul className="dropdown-menu dropdown-menu-end dropdown-menu-lg-end">
-					{store.favorites.map( ( name, i ) => (
-						<li key={i} className="dropdown-item favorite d-flex justify-content-between p-2">{name}<i className="fas fa-trash" onClick={()=>{actions.deleteFavorites(name)}} ></i></li>
+					{store.favorites.map( ( { people, planet, films, id}, i ) => (
+						<li key={i} className="dropdown-item favorite d-flex justify-content-between p-2">{ people || planet || films }<i className="fas fa-trash" onClick={()=>{actions.deleteFavorites(id)}} ></i></li>
 					))}	
 				</ul>
 			</div>

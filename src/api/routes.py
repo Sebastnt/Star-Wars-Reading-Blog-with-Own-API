@@ -104,17 +104,16 @@ def get_film(films_id):
 @jwt_required()
 def user_favorites_jwt():
     current_user = get_jwt_identity()
-    favorites_query = Favorites.query.filter_by(user_id=current_user).all()
-    list_favorites = []
-    for i in favorites_query:
-        favorite_people = People.query.filter_by(id=i.people_id).first()
-        if favorite_people:
-            list_favorites.append(favorite_people.name)
-        favorite_planets = Planets.query.filter_by(id=i.planets_id).first()
-        if favorite_planets:
-            list_favorites.append(favorite_planets.name)
+    favorites_query = db.session.query(Favorites, User, People, Planets, Films).join(User).outerjoin(People).outerjoin(Planets).outerjoin(Films).filter(User.id==current_user).all()
+    favorites_info = list(map(lambda favorite: {
+        "id": favorite[0].id,
+        "user": favorite[1].email,
+        "people": favorite[2].name if favorite[2] else None,
+        "planet": favorite[3].name if favorite[3] else None,
+        "films": favorite[4].title if favorite[4] else None
+    }, favorites_query))
     response_body = {
-        "list_favorites": list_favorites
+        "list_favorites": favorites_info
     }
     return jsonify(response_body), 200
 
@@ -172,12 +171,13 @@ def add_new_favorite_films(films_id):
             return jsonify({"msg": "Films doesn't exists"}), 401
     if favorites_query:
         return jsonify({"msg": "Favorite films already added"}), 200
-
+        
+#DELETE FAVORITES
 @api.route('/favorites/<int:favorites_id>', methods=['DELETE'])
 @jwt_required()
 def delete_favorite(favorites_id):
     current_user = get_jwt_identity()
-    favorites_query = Favorites.query.filter(id==favorites_id).first()
+    favorites_query = Favorites.query.filter_by(user_id=current_user,id=favorites_id).first()
 
     if favorites_query:
         db.session.delete(favorites_query)

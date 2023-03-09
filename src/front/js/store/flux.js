@@ -25,19 +25,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       exampleFunction: () => {
         getActions().changeColor(0, "green");
       },
-      addFavorites: (name) => {
-        if (getStore().favorites.includes(name) === false) {
-          let tempFavorites = [...getStore().favorites];
-          tempFavorites.push(name);
-          setStore({ favorites: tempFavorites });
-        }
-      },
-      deleteFavorites: (item) => {
-        let removeList = getStore().favorites.filter(
-          (favorite) => favorite !== item
-        );
-        setStore({ favorites: removeList });
-      },
       getMessage: async () => {
         try {
           // fetching data from the backend
@@ -76,6 +63,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             console.log(e);
           }
         }
+        console.log('getStore')
+        console.log(getStore())
       },
       getPlanets: async (id) => {
         let api = url + "/api/planets";
@@ -230,7 +219,21 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log(e);
         }
       },
-      
+      deleteFavorites: async (id) => {
+        let api = url + "/api/favorites/" + id;
+        try {
+          await fetch((api), {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+          });
+        getActions().getFavorites()
+        } catch (e) {
+          console.log(e);
+        }
+      },
       changeColor: (index, color) => {
         //get the store
         const store = getStore();
