@@ -34,8 +34,8 @@ export const InfoPlanets = () => {
 						onError={(e) => {
 						e.target.onError = null; 
 						e.target.src ="https://oyster.ignimgs.com/mediawiki/apis.ign.com/star-wars-episode-7/4/4b/Tatooine-3.jpg";
-						}} className="infocard" alt="..." />
-                    <div className="info p-3 text-center">
+						}} className="infocard rounded-start" alt="..." />
+                    <div className="info p-3 text-center rounded-end">
                         <h1>{store.planets.name}</h1>
                         <p>Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content. Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     </div>

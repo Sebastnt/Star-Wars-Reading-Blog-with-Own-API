@@ -31,8 +31,8 @@ export const InfoFilms = () => {
             <div className="container">
                 <div className="infotop d-flex justify-content-evenly p-2">
 
-                    <img src={`https://starwars-visualguide.com/assets/img/films/${id}.jpg`} className="infocard" alt="..." />
-                    <div className="info p-3 text-center">
+                    <img src={`https://starwars-visualguide.com/assets/img/films/${id}.jpg`} className="infocard rounded-start" alt="..." />
+                    <div className="info p-3 text-center rounded-end">
                         <h1>{store.films.title}, Episode: {store.films.episode_id}</h1>
                         <p>{store.films.opening_crawl}</p>
                     </div>

@@ -2,6 +2,7 @@ import React, { useContext, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
+import { Navbar } from "../component/navbar.jsx";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -24,6 +25,9 @@ export const Login = () => {
 
   return (
     <>
+      <nav className="navbar navbar-light bg-light mb-3 p-3 d-flex justify-content-center">
+        <span className="navbar-brand mb-0 h1"><img src="https://img.icons8.com/ios/50/000000/star-wars.png"/></span>
+      </nav>
       <div className="box d-flex p-1 rounded-2">
         <form className="form m-2">
           <div className="container">

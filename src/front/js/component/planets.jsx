@@ -17,13 +17,9 @@ export const Planets = () => {
         <div className="container mt-2">
 			<h2>Planets</h2>
 			<div className="card-container mt-4 p-2 d-flex justify-content-between">
-				{store.planets && store.planets.map( ( {name, population, terrain, climate, id}, i ) => (
+				{store.planets && store.planets.map( ( {name, population, terrain, climate, id, url}, i ) => (
 					<div key= {i} className="card me-5">
-						<img src={`https://starwars-visualguide.com/assets/img/planets/${i + 1}.jpg`}
-						onError={(e) => {
-						e.target.onError = null; 
-						e.target.src ="https://i.pinimg.com/originals/3a/95/ad/3a95adf3df957702adba35591520e119.jpg";
-						}} className="card-img-top" alt="..." />
+						<img src={url} className="card-img-top" alt="..." />
 						<div className="card-body p-3">
 							<h4 className="card-title">{name}</h4>
 							<p className="card-text"> Population: {population}</p>

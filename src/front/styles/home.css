@@ -1,50 +1,76 @@
-
-.card {
-    width: 18rem;
-    min-width: 18rem;
+body {
+  background-image: url("https://i.pinimg.com/originals/4a/a9/9b/4aa99b6ad2d2cbc7cb04a41571885a8f.jpg");
 }
 
+.card {
+  width: 17rem;
+  min-width: 17rem;
+}
+
+.card-body {
+  background-image: url("https://thumbs.dreamstime.com/b/abstract-white-space-background-milky-way-low-contrast-inverse-95215040.jpg");
+}
 h2 {
-    color: red;
+  color: red;
 }
 
 .card-container {
-    overflow-x: scroll;
-    overflow-y: hidden;
-    height: 720px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 710px;
+  margin-bottom: 15px;
+  width: 1250px;
 }
 
 .like:active {
-    color: yellow;
+  color: yellow;
 }
 
 .like:focus {
-    color: red;
+  color: red;
 }
 
 .like:target {
-    color: red;
+  color: red;
 }
 
 .infocard {
-    width: 400px;
+  width: 400px;
 }
 
 .infofooter {
-    border-top: 3px solid red;
+  border-top: 3px solid red;
 }
 
 .info {
-    font-size: 150%;
+  font-size: 150%;
+  background-image: url("https://thumbs.dreamstime.com/b/abstract-white-space-background-milky-way-low-contrast-inverse-95215040.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-th, tr {
-    color: red;
+th,
+tr {
+  color: red;
 }
 
 .box {
-    background: rgb(191, 191, 241);
-    margin: auto;
-    width: 300px;
-    height: 250px;
+  width: 350px;
+  height: 160px;
+  margin: auto;
+  background-image: url("https://thumbs.dreamstime.com/b/abstract-white-space-background-milky-way-low-contrast-inverse-95215040.jpg");
+  border-radius: 10px;
+  box-shadow: 5px 20px 50px #000;
+}
+
+.dropdown-menu {
+  background-image: url("https://thumbs.dreamstime.com/b/abstract-white-space-background-milky-way-low-contrast-inverse-95215040.jpg");
+}
+
+.loginButton {
+  margin: auto;
+}
+
+nav {
+  background-image: url("https://thumbs.dreamstime.com/b/abstract-white-space-background-milky-way-low-contrast-inverse-95215040.jpg");
 }

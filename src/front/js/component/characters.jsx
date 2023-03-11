@@ -10,15 +10,16 @@ export const Characters = () => {
 
 	useEffect(() => {
 		actions.getCharacters();
+		actions.getFavorites();
 	},[])
-	console.log(store.favorites)
+
     return (
         <div className="container mt-2">
 			<h2>Characters</h2>
 			<div className="card-container mt-4 p-2 d-flex justify-content-between">
-				{store.characters && store.characters.map( ( {name, hair_color, eye_color, gender, id}, i ) => (
+				{store.characters && store.characters.map( ( {name, hair_color, eye_color, gender, id, url}, i ) => (
 					<div key= {i} className="card me-5">
-						<img src={`https://starwars-visualguide.com/assets/img/characters/${i+1}.jpg`} className="card-img-top" alt="Loading from API" />
+						<img src={url} className="card-img-top" alt="Loading from API" />
 						<div className="card-body p-3">
 							<h4 className="card-title">{name}</h4>
 							<p className="card-text"> Gender: {gender}</p>
@@ -30,7 +31,7 @@ export const Characters = () => {
 								<button className="btn btn-outline-primary">Learn More!</button>
 							</Link>
 							<button className="like btn btn-outline-warning"><i
-            				className={store.favorites.includes({name}) ? "fas fa-heart" : "far fa-heart"} onClick={()=>{actions.favoriteCharacters(id)}} ></i></button>
+            				className={store.favorites.includes(store.favorites.people) ? "fas fa-heart" : "far fa-heart"} onClick={()=>{actions.favoriteCharacters(id)}} ></i></button>
 						</div>
 					</div>
 				))}
